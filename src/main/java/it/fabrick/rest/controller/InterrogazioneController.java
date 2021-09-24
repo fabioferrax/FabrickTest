@@ -30,7 +30,7 @@ public class InterrogazioneController {
 	public GenericResponse<LetturaSaldoResponse> getSaldo(@RequestParam(value = "accountId", required = true) String accountId) { 
 		GenericResponse<LetturaSaldoResponse> response = null;
 		try {
-			
+			logger.info("START getSaldo accountId[{}]",accountId);
 			LetturaSaldoResponse resultSaldo = interrogazioniService.getSaldo(accountId);
 			response = new GenericResponse<LetturaSaldoResponse>(Constants.HTTP_STATUS_OK, resultSaldo);
 			
