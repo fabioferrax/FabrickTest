@@ -4,20 +4,22 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class LetturaSaldoResponse {
 
-	@DateTimeFormat(pattern =  "dd/MM/yyyy" )
-	private Date aggiornatoA;
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private Date aggiornatoAl;
 	private Float saldoContabile; // balance
 	private Float saldo; 			//availableBalance
 	private String currency;
 	
 	
-	public Date getAggiornatoA() {
-		return aggiornatoA;
+	public Date getAggiornatoAl() {
+		return aggiornatoAl;
 	}
-	public void setAggiornatoA(Date aggiornatoA) {
-		this.aggiornatoA = aggiornatoA;
+	public void setAggiornatoAl(Date aggiornatoAl) {
+		this.aggiornatoAl = aggiornatoAl;
 	}
 	public Float getSaldoContabile() {
 		return saldoContabile;
@@ -39,7 +41,7 @@ public class LetturaSaldoResponse {
 	}
 	@Override
 	public String toString() {
-		return "LetturaSaldoResponse [aggiornatoA=" + aggiornatoA + ", saldoContabile=" + saldoContabile + ", saldo="
+		return "LetturaSaldoResponse [aggiornatoAl=" + aggiornatoAl + ", saldoContabile=" + saldoContabile + ", saldo="
 				+ saldo + ", currency=" + currency + "]";
 	}
 	

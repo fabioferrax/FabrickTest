@@ -49,7 +49,7 @@ public class InterrogazioniServiceImpl implements InterrogazioniService{
 			if(serviceIntegrationUtils.isValidResponse(responseWS)) {
 				LetturaSaldoIntegrationResponse reponseBody = responseWS.getBody();
 				result = new LetturaSaldoResponse();
-				result.setAggiornatoA(reponseBody.getPayload().getDate());
+				result.setAggiornatoAl(reponseBody.getPayload().getDate());
 				result.setSaldo(reponseBody.getPayload().getAvailableBalance());
 				result.setSaldoContabile(reponseBody.getPayload().getBalance());
 				result.setCurrency(reponseBody.getPayload().getCurrency());
