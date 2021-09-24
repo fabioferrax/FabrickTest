@@ -33,7 +33,8 @@ public class InterrogazioneController {
 			logger.info("START getSaldo accountId[{}]",accountId);
 			LetturaSaldoResponse resultSaldo = interrogazioniService.getSaldo(accountId);
 			response = new GenericResponse<LetturaSaldoResponse>(Constants.HTTP_STATUS_OK, resultSaldo);
-			
+
+			logger.info("END getSaldo produces[{}]",response);
 		}catch(FabrickException e) {
 			throw e;
 		}catch(Exception e) {
