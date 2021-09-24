@@ -37,6 +37,12 @@ public class LetturaSaldoResponse {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
+	@Override
+	public String toString() {
+		return "LetturaSaldoResponse [aggiornatoA=" + aggiornatoA + ", saldoContabile=" + saldoContabile + ", saldo="
+				+ saldo + ", currency=" + currency + "]";
+	}
+	
 	
 	
 }

@@ -53,5 +53,10 @@ public class GenericResponse<T> {
 	public void setData(Object data) {
 		this.data = data;
 	}
+	@Override
+	public String toString() {
+		return "GenericResponse [error=" + error + ", status=" + status + ", data=" + data + "]";
+	}
+	
 	
 }
