@@ -8,8 +8,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import it.fabrick.rest.DTO.letturaTransazioni.LetturaTransazioniRequest;
 import it.fabrick.services.integration.DTO.FabrickGenericResponse;
-import it.fabrick.services.integration.DTO.LetturaSaldoIntegrationResponse;
+import it.fabrick.services.integration.DTO.letturaSaldo.LetturaSaldoIntegrationResponse;
 
 
 @Configuration
@@ -89,6 +90,20 @@ public class ServiceIntegrationUtils {
 		String uri =  createBaseUri() + letturaSaldoEndpoint;
 		uri = uri.replace(Constants.ACCOUNT_ID_INTEGRATION_PARAMS_KEY, accountId);
 		logger.info("END - createLetturaSaldoRequestUri produces[{}]",uri);
+		return uri;
+	}
+
+	public String createLetturaTransazioniUri(LetturaTransazioniRequest request) {
+		logger.info("START - createLetturaTransazioniUri request[{}]",request);
+		String uri =  createBaseUri() + letturaTransazioniEndpoint;
+		uri = uri.replace(Constants.ACCOUNT_ID_INTEGRATION_PARAMS_KEY, request.getAccountId());
+		if(request.getFrom() != null) {
+			uri = uri.replace(Constants.FROM_DATE_INTEGRATION_PARAMS_KEY, Utils.formatDate(Constants.DATE_FORMAT_yyyy_MM_dd, request.getFrom()));
+		}
+		if(request.getTo() != null) {
+			uri = uri.replace(Constants.TO_DATE_INTEGRATION_PARAMS_KEY, Utils.formatDate(Constants.DATE_FORMAT_yyyy_MM_dd, request.getTo()));
+		}
+		logger.info("END - createLetturaSaldoTransazioniUri produces[{}]",uri);
 		return uri;
 	}
 
