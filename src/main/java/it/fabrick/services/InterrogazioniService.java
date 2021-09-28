@@ -7,7 +7,7 @@ import it.fabrick.rest.DTO.letturaTransazioni.LetturaTransazioniResponse;
 public interface InterrogazioniService {
 
 	
-	public LetturaSaldoResponse getSaldo(String accountId);
+	public LetturaSaldoResponse getSaldo(Long accountId);
 	
 	public LetturaTransazioniResponse  getTransazioni(LetturaTransazioniRequest request);
 	

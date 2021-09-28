@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 public class BaseAccountRequest {
 
 	@NotNull
-	private String accountId;
+	private Long accountId;
 	
 
 	public BaseAccountRequest() {
@@ -15,16 +15,16 @@ public class BaseAccountRequest {
 	}
 	
 
-	public BaseAccountRequest(@NotNull String accountId) {
+	public BaseAccountRequest(@NotNull Long accountId) {
 		super();
 		this.accountId = accountId;
 	}
 
-	public String getAccountId() {
+	public Long getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(String accountId) {
+	public void setAccountId(Long accountId) {
 		this.accountId = accountId;
 	}
 

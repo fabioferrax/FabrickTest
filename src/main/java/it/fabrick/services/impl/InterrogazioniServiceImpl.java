@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import it.fabrick.exception.FabrickException;
+import it.fabrick.rest.DTO.BaseAccountRequest;
 import it.fabrick.rest.DTO.letturaSaldo.LetturaSaldoResponse;
 import it.fabrick.rest.DTO.letturaTransazioni.LetturaTransazioniRequest;
 import it.fabrick.rest.DTO.letturaTransazioni.LetturaTransazioniResponse;
@@ -34,7 +35,7 @@ public class InterrogazioniServiceImpl implements InterrogazioniService{
 	private ServiceIntegrationUtils serviceIntegrationUtils;
 
 	@Override
-	public LetturaSaldoResponse getSaldo(String accountId) {
+	public LetturaSaldoResponse getSaldo(Long accountId) {
 		logger.info("START - getSaldo accountId[{}]",accountId);
 		LetturaSaldoResponse result = null;
 		try {
@@ -43,7 +44,8 @@ public class InterrogazioniServiceImpl implements InterrogazioniService{
 			
 	        HttpEntity entity = new HttpEntity(headers);
 			
-			String uriLetturaSaldo = serviceIntegrationUtils.createLetturaSaldoRequestUri(accountId);
+	        BaseAccountRequest baseReq = new BaseAccountRequest(accountId);
+			String uriLetturaSaldo = serviceIntegrationUtils.createLetturaSaldoRequestUri(baseReq);
 			
 			ResponseEntity<LetturaSaldoIntegrationResponse> responseWS = defaultRestTemplate.exchange(uriLetturaSaldo,
                     HttpMethod.GET,

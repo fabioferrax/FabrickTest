@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import it.fabrick.rest.DTO.BaseAccountRequest;
 import it.fabrick.rest.DTO.letturaTransazioni.LetturaTransazioniRequest;
 import it.fabrick.services.integration.DTO.FabrickGenericResponse;
 import it.fabrick.services.integration.DTO.letturaSaldo.LetturaSaldoIntegrationResponse;
@@ -85,10 +86,10 @@ public class ServiceIntegrationUtils {
 		return baseUri;
 	}
 
-	public String createLetturaSaldoRequestUri(String accountId) {
-		logger.info("START - createLetturaSaldoRequestUri accountId[{}]",accountId);
+	public String createLetturaSaldoRequestUri(BaseAccountRequest baseRequest) {
+		logger.info("START - createLetturaSaldoRequestUri accountId[{}]",baseRequest.getAccountId());
 		String uri =  createBaseUri() + letturaSaldoEndpoint;
-		uri = uri.replace(Constants.ACCOUNT_ID_INTEGRATION_PARAMS_KEY, accountId);
+		uri = uri.replace(Constants.ACCOUNT_ID_INTEGRATION_PARAMS_KEY, String.valueOf(baseRequest.getAccountId()));
 		logger.info("END - createLetturaSaldoRequestUri produces[{}]",uri);
 		return uri;
 	}
@@ -96,7 +97,7 @@ public class ServiceIntegrationUtils {
 	public String createLetturaTransazioniUri(LetturaTransazioniRequest request) {
 		logger.info("START - createLetturaTransazioniUri request[{}]",request);
 		String uri =  createBaseUri() + letturaTransazioniEndpoint;
-		uri = uri.replace(Constants.ACCOUNT_ID_INTEGRATION_PARAMS_KEY, request.getAccountId());
+		uri = uri.replace(Constants.ACCOUNT_ID_INTEGRATION_PARAMS_KEY, String.valueOf(request.getAccountId()));
 		if(request.getFrom() != null) {
 			uri = uri.replace(Constants.FROM_DATE_INTEGRATION_PARAMS_KEY, Utils.formatDate(Constants.DATE_FORMAT_yyyy_MM_dd, request.getFrom()));
 		}
@@ -104,6 +105,14 @@ public class ServiceIntegrationUtils {
 			uri = uri.replace(Constants.TO_DATE_INTEGRATION_PARAMS_KEY, Utils.formatDate(Constants.DATE_FORMAT_yyyy_MM_dd, request.getTo()));
 		}
 		logger.info("END - createLetturaSaldoTransazioniUri produces[{}]",uri);
+		return uri;
+	}
+
+	public String createMoneyTransferRequestUri(BaseAccountRequest baseRequest) {
+		logger.info("START - createMoneyTransferRequestUri accountId[{}]",baseRequest.getAccountId());
+		String uri =  createBaseUri() + bonificoEndpoint;
+		uri = uri.replace(Constants.ACCOUNT_ID_INTEGRATION_PARAMS_KEY, String.valueOf(baseRequest.getAccountId()));
+		logger.info("END - createMoneyTransferRequestUri produces[{}]",uri);
 		return uri;
 	}
 

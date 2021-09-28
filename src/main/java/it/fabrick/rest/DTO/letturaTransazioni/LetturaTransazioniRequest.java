@@ -22,7 +22,7 @@ public class LetturaTransazioniRequest extends BaseAccountRequest{
 	
 	
 	
-	public LetturaTransazioniRequest(String accountId, Date from, Date to) {
+	public LetturaTransazioniRequest(Long accountId, Date from, Date to) {
 		super(accountId);
 		this.from = from;
 		this.to = to;

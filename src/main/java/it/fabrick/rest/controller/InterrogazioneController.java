@@ -9,8 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,10 +29,31 @@ public class InterrogazioneController {
 	
 	@Autowired
 	private InterrogazioniService interrogazioniService;
+	
+	@GetMapping(value = "/testState", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@ResponseBody
+	public GenericResponse<String> testState() { 
+		GenericResponse<String> response = null;
+		try {
+			logger.info("START testState");
+			
+			
+			response = new GenericResponse<String>(Constants.HTTP_STATUS_OK, "API-ON");
+
+			logger.info("END testState produces[{}]",response);
+		}catch(FabrickException e) {
+			logger.error("Errore in testState API", e);
+			throw e;
+		}catch(Exception e) {
+			logger.error("Errore in testState API", e);
+			throw new FabrickException(Constants.GENERIC_EXCEPTION);
+		}
+		return response;
+	}
 
 	@GetMapping(value = "/getSaldo", produces = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
-	public GenericResponse<LetturaSaldoResponse> getSaldo(@RequestParam(value = "accountId", required = true) String accountId) { 
+	public GenericResponse<LetturaSaldoResponse> getSaldo(@RequestParam(value = "accountId", required = true) Long accountId) { 
 		GenericResponse<LetturaSaldoResponse> response = null;
 		try {
 			logger.info("START getSaldo accountId[{}]",accountId);
@@ -58,7 +77,7 @@ public class InterrogazioneController {
 	@GetMapping(value = "/getTransazioni", produces = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public GenericResponse<LetturaTransazioniResponse> getTransazioni(
-			@RequestParam(value = "accountId", required = true) String accountId,
+			@RequestParam(value = "accountId", required = true) Long accountId,
 			@RequestParam(value = "fromAccountingDate", required = true) @DateTimeFormat(pattern="yyyy-MM-d") Date from,
 			@RequestParam(value = "toAccountingDate", required = true) @DateTimeFormat(pattern="yyyy-MM-d") Date to
 			

@@ -13,7 +13,7 @@ public class Utils {
 
 	private static final Logger logger = LoggerFactory.getLogger(Utils.class);
 
-	
+
 	public static String formatDate(String pattern, Date data) {
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		return sdf.format(data);
