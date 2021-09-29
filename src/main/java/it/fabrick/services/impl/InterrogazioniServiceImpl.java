@@ -1,5 +1,7 @@
 package it.fabrick.services.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +12,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import it.fabrick.dao.repository.TransazioneRepository;
 import it.fabrick.exception.FabrickException;
 import it.fabrick.rest.DTO.BaseAccountRequest;
 import it.fabrick.rest.DTO.letturaSaldo.LetturaSaldoResponse;
 import it.fabrick.rest.DTO.letturaTransazioni.LetturaTransazioniRequest;
 import it.fabrick.rest.DTO.letturaTransazioni.LetturaTransazioniResponse;
+import it.fabrick.rest.DTO.letturaTransazioni.Transazione;
 import it.fabrick.services.InterrogazioniService;
+import it.fabrick.services.integration.ServiceIntegrationUtils;
 import it.fabrick.services.integration.DTO.letturaSaldo.LetturaSaldoIntegrationResponse;
 import it.fabrick.services.integration.DTO.letturaTransazioni.LetturaTransazioniIntegrationResponse;
 import it.fabrick.utils.Constants;
 import it.fabrick.utils.Mapper;
-import it.fabrick.utils.ServiceIntegrationUtils;
 
 
 @Service
@@ -33,6 +37,9 @@ public class InterrogazioniServiceImpl implements InterrogazioniService{
 
 	@Autowired
 	private ServiceIntegrationUtils serviceIntegrationUtils;
+	
+	@Autowired
+	private TransazioneRepository transazioneRepository;
 
 	@Override
 	public LetturaSaldoResponse getSaldo(Long accountId) {
@@ -63,13 +70,16 @@ public class InterrogazioniServiceImpl implements InterrogazioniService{
 					throw new FabrickException(Constants.INTEGRATION_EXCEPTION, "Payload assente");
 				}
 			}else {
-				throw new FabrickException(Constants.INTEGRATION_EXCEPTION, "Ricevuto response non valida");
+				serviceIntegrationUtils.manageErrorResponse(responseWS);
 			}
 
 			
+		}catch(FabrickException e) {
+			logger.error("Errore durante la lettura delle transazioni",e);
+			throw e;
 		}catch(Exception e) {
 			logger.error("Errore durante la lettura del saldo",e);
-			throw new FabrickException(Constants.INTEGRATION_EXCEPTION);
+			throw new FabrickException(Constants.INTEGRATION_EXCEPTION, e.getMessage());
 		}
 		logger.info("END - getSaldo produces [{}]",result);
 		return result;
@@ -96,20 +106,38 @@ public class InterrogazioniServiceImpl implements InterrogazioniService{
 				if(reponseBody.getPayload() != null) {
 					result = new LetturaTransazioniResponse();
 					result.setTransazioni(Mapper.mapTransazioni(reponseBody.getPayload().getList()));
+					persistTransazioni(result.getTransazioni());
 				}else {
 					throw new FabrickException(Constants.INTEGRATION_EXCEPTION, "Payload assente");
 				}
 			}else {
-				throw new FabrickException(Constants.INTEGRATION_EXCEPTION, "Ricevuto response non valida");
+				serviceIntegrationUtils.manageErrorResponse(responseWS);
 			}
 
 			
+		}catch(FabrickException e) {
+			logger.error("Errore durante la lettura delle transazioni",e);
+			throw e;
 		}catch(Exception e) {
 			logger.error("Errore durante la lettura delle transazioni",e);
-			throw new FabrickException(Constants.INTEGRATION_EXCEPTION);
+			throw new FabrickException(Constants.INTEGRATION_EXCEPTION, e.getMessage());
 		}
 		logger.info("END - getTransazioni produces [{}]",result);
 		return result;
+	}
+
+	private void persistTransazioni(List<Transazione> transazioni) {
+		logger.info("START - persistTransazioni transazioni.size [{}]",transazioni != null ? transazioni.size() : 0);
+		try {
+			if(transazioni != null) {
+				List<it.fabrick.dao.entity.Transazione> listToPersist = Mapper.mapTransazioniDAO(transazioni);
+				
+				transazioneRepository.saveAll(listToPersist);
+			}
+		}catch(Exception e) {
+			logger.error("Errore durante il salvataggio delle transazioni",e);
+		}
+		logger.info("END - persistTransazioni");
 	}
 
 	

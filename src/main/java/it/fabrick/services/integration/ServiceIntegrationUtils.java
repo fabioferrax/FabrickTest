@@ -1,4 +1,7 @@
-package it.fabrick.utils;
+package it.fabrick.services.integration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +11,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import it.fabrick.exception.FabrickException;
 import it.fabrick.rest.DTO.BaseAccountRequest;
+import it.fabrick.rest.DTO.Error;
 import it.fabrick.rest.DTO.letturaTransazioni.LetturaTransazioniRequest;
 import it.fabrick.services.integration.DTO.FabrickGenericResponse;
 import it.fabrick.services.integration.DTO.letturaSaldo.LetturaSaldoIntegrationResponse;
+import it.fabrick.utils.Constants;
+import it.fabrick.utils.Utils;
 
 
 @Configuration
@@ -63,6 +70,23 @@ public class ServiceIntegrationUtils {
 
 	public boolean isValidResponse(ResponseEntity response) {
 		return response!= null && response.getBody() != null && Constants.HTTP_STATUS_OK.equalsIgnoreCase(((FabrickGenericResponse)response.getBody()).getStatus());
+	}
+
+	public void manageErrorResponse(ResponseEntity response) {
+		String code = Constants.INTEGRATION_EXCEPTION;
+		String msg = "Ricevuta response non valida";
+		List<Error> errors = new ArrayList<Error>();
+		if(response!= null && response.getBody() != null && Constants.HTTP_STATUS_KO.equalsIgnoreCase(((FabrickGenericResponse)response.getBody()).getStatus())) {
+			logger.debug("response [{}]",response);
+			List<it.fabrick.services.integration.DTO.Error> errorsWS = ((FabrickGenericResponse)response.getBody()).getErrors();
+			logger.debug("errorsWS [{}]",errorsWS);
+			if(errorsWS != null) {
+				for(it.fabrick.services.integration.DTO.Error e: errorsWS) {
+					errors.add(new Error(e.getCode(), e.getMessage() != null ? e.getMessage() : e.getDescription()));
+				}
+			}
+		}
+		throw new FabrickException(code, msg, errors);
 	}
 
 	public HttpHeaders createFabrickHeaders() {

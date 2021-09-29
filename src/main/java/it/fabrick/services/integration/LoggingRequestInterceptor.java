@@ -1,4 +1,4 @@
-package it.fabrick.utils;
+package it.fabrick.services.integration;
 
 import java.io.BufferedReader;
 import java.io.IOException;

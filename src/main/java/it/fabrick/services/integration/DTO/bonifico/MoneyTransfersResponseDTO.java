@@ -1,16 +1,18 @@
-package it.fabrick.rest.DTO.bonifico;
+package it.fabrick.services.integration.DTO.bonifico;
 
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-@JsonInclude(Include.NON_NULL)
-public class BonificoResponse {
+public class MoneyTransfersResponseDTO {
 
 	private String moneyTransferId;
 	private String status;
+	private String direction;
+	private CreditorDTO creditor;
+	private DebtorDTO debtor;
+	private String cro;
+	private String uri;
+	private String trn;
 	private String description;
 	private Date createdDatetime;
 	private Date accountedDatetime;
@@ -35,6 +37,42 @@ public class BonificoResponse {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getDirection() {
+		return direction;
+	}
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	public CreditorDTO getCreditor() {
+		return creditor;
+	}
+	public void setCreditor(CreditorDTO creditor) {
+		this.creditor = creditor;
+	}
+	public DebtorDTO getDebtor() {
+		return debtor;
+	}
+	public void setDebtor(DebtorDTO debtor) {
+		this.debtor = debtor;
+	}
+	public String getCro() {
+		return cro;
+	}
+	public void setCro(String cro) {
+		this.cro = cro;
+	}
+	public String getUri() {
+		return uri;
+	}
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+	public String getTrn() {
+		return trn;
+	}
+	public void setTrn(String trn) {
+		this.trn = trn;
 	}
 	public String getDescription() {
 		return description;
@@ -110,13 +148,14 @@ public class BonificoResponse {
 	}
 	@Override
 	public String toString() {
-		return "BonificoResponse [moneyTransferId=" + moneyTransferId + ", status=" + status + ", description="
-				+ description + ", createdDatetime=" + createdDatetime + ", accountedDatetime=" + accountedDatetime
-				+ ", debtorValueDate=" + debtorValueDate + ", creditorValueDate=" + creditorValueDate + ", amount="
-				+ amount + ", isUrgent=" + isUrgent + ", isInstant=" + isInstant + ", hasTaxRelief=" + hasTaxRelief
-				+ ", feeType=" + feeType + ", feeAccountId=" + feeAccountId + ", fees=" + fees + "]";
+		return "MoneyTransfersResponse [moneyTransferId=" + moneyTransferId + ", status=" + status + ", direction="
+				+ direction + ", creditor=" + creditor + ", debtor=" + debtor + ", cro=" + cro + ", uri=" + uri
+				+ ", trn=" + trn + ", description=" + description + ", createdDatetime=" + createdDatetime
+				+ ", accountedDatetime=" + accountedDatetime + ", debtorValueDate=" + debtorValueDate
+				+ ", creditorValueDate=" + creditorValueDate + ", amount=" + amount + ", isUrgent=" + isUrgent
+				+ ", isInstant=" + isInstant + ", hasTaxRelief=" + hasTaxRelief + ", feeType=" + feeType
+				+ ", feeAccountId=" + feeAccountId + ", fees=" + fees + "]";
 	}
-
 	
 	
 }

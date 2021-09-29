@@ -1,5 +1,7 @@
 package it.fabrick.rest.controller;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,7 @@ public class DispositiveController {
 	
 	@PostMapping(value = "/eseguiBonifico", produces = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
-	public GenericResponse<BonificoResponse> eseguiBonifico(@RequestBody BonificoRequest request) { 
+	public GenericResponse<BonificoResponse> eseguiBonifico(@Valid @RequestBody BonificoRequest request) { 
 		GenericResponse<BonificoResponse> response = null;
 		try {
 			logger.info("START eseguiBonifico request[{}]",request);

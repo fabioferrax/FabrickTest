@@ -1,13 +1,17 @@
 package it.fabrick.rest.DTO;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Valid
+import org.springframework.validation.annotation.Validated;
+
+@Validated
 public class BaseAccountRequest {
 
 	@NotNull
-	private Long accountId;
+	@NotBlank
+	private String accountId;
 	
 
 	public BaseAccountRequest() {
@@ -15,16 +19,21 @@ public class BaseAccountRequest {
 	}
 	
 
-	public BaseAccountRequest(@NotNull Long accountId) {
+	public BaseAccountRequest(@NotNull String accountId) {
 		super();
 		this.accountId = accountId;
 	}
 
-	public Long getAccountId() {
+	public BaseAccountRequest(@NotNull Long accountId) {
+		super();
+		this.accountId = String.valueOf(accountId);
+	}
+
+	public String getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(Long accountId) {
+	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
 

@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FabrickGenericResponse {
-	private List<Error> error;
+	private List<Error> errors;
 	
 	private String status;
-	
 
-	public List<Error> getError() {
-		return error;
+	public List<Error> getErrors() {
+		return errors;
 	}
 
-	public void setError(List<Error> error) {
-		this.error = error;
+	public void setErrors(List<Error> errors) {
+		this.errors = errors;
 	}
 
 	public String getStatus() {
@@ -27,7 +26,7 @@ public class FabrickGenericResponse {
 
 	@Override
 	public String toString() {
-		return "FabrickGenericResponse [error=" + error + ", status=" + status + "]";
+		return "FabrickGenericResponse [errors=" + errors + ", status=" + status + "]";
 	}
 
 

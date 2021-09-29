@@ -18,4 +18,26 @@ public class Mapper {
 		}
 		return list;
 	}
+
+	public static List<it.fabrick.dao.entity.Transazione> mapTransazioniDAO(List<Transazione> transazioni) {
+		List<it.fabrick.dao.entity.Transazione> list = new ArrayList<it.fabrick.dao.entity.Transazione>();
+		if(transazioni != null) {
+			it.fabrick.dao.entity.Transazione tDB = null;
+			for(Transazione t: transazioni) {
+				tDB = new it.fabrick.dao.entity.Transazione();
+				tDB.setTransactionId(t.getTransactionId());
+				tDB.setOperationId(t.getOperationId());
+				tDB.setAccountingDate(t.getAccountingDate());
+				tDB.setAmount(t.getAmount());
+				tDB.setCurrency(t.getCurrency());
+				tDB.setDescription(t.getDescription());
+				tDB.setValueDate(t.getValueDate());
+				tDB.setType_enum(t.getType().getEnumeration());
+				tDB.setType_value(t.getType().getValue());
+				list.add(tDB);
+			}
+		}
+		
+		return list;
+	}
 }

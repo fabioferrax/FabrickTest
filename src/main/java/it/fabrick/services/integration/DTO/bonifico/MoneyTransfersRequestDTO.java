@@ -1,41 +1,21 @@
-package it.fabrick.rest.DTO.bonifico;
+package it.fabrick.services.integration.DTO.bonifico;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+@JsonInclude(Include.NON_NULL)
+public class MoneyTransfersRequestDTO {
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.annotation.Validated;
-
-import it.fabrick.rest.DTO.BaseAccountRequest;
-
-@Validated
-public class BonificoRequest extends BaseAccountRequest {
-
-	@NotNull
-	@Valid
 	private CreditorDTO creditor;
 	private String uri;
-	@NotNull
-	@DateTimeFormat(pattern="yyyy-MM-d")
-	private Date executionDate;
-	@NotNull
-	@NotBlank
+	private String executionDate;
 	private String description;
-	@NotNull
-	@NotBlank
 	private String currency;
-	@NotNull
 	private Float amount;
 	private boolean isUrgent;
 	private boolean isInstant;
 	private String feeType;
-	@NotNull
-	@NotBlank
 	private String feeAccountId;
-	@Valid
 	private TaxReliefDTO taxRelief;
 	
 	public CreditorDTO getCreditor() {
@@ -50,10 +30,10 @@ public class BonificoRequest extends BaseAccountRequest {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
-	public Date getExecutionDate() {
+	public String getExecutionDate() {
 		return executionDate;
 	}
-	public void setExecutionDate(Date executionDate) {
+	public void setExecutionDate(String executionDate) {
 		this.executionDate = executionDate;
 	}
 	public String getDescription() {

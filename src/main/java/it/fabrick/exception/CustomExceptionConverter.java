@@ -13,7 +13,7 @@ import it.fabrick.rest.DTO.Error;
 
 @Component
 @Configuration
-public class ExceptionUtils {
+public class CustomExceptionConverter implements ExceptionConverter {
 
 	private static final String EXCEPTION_LIST_SEPARATOR = ";";
 
@@ -22,6 +22,7 @@ public class ExceptionUtils {
 	@Value("${exceptionMap}")
 	private String exceptionMapString;
 
+	@Override
 	public Error convertError(String code, String msg) {
 		Error err = new Error();
 		err.setCode(code);
@@ -32,7 +33,7 @@ public class ExceptionUtils {
 		return err;
 	}
 	
-	private  Map<String,String> exceptionMap(){
+	private Map<String,String> exceptionMap(){
 		if(exceptionMap != null) {
 			return exceptionMap;
 		}
