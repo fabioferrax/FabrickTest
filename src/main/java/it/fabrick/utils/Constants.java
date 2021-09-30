@@ -9,7 +9,9 @@ public class Constants {
 
 	public static final String GENERIC_EXCEPTION = "GE";
 	public static final String INTEGRATION_EXCEPTION = "IE";
-	
+
+
+	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 
 	public static final String DATE_FORMAT_yyyy_MM_dd = "yyyy-MM-dd";
 	

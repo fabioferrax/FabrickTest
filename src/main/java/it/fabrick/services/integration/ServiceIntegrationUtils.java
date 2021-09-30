@@ -123,10 +123,10 @@ public class ServiceIntegrationUtils {
 		String uri =  createBaseUri() + letturaTransazioniEndpoint;
 		uri = uri.replace(Constants.ACCOUNT_ID_INTEGRATION_PARAMS_KEY, String.valueOf(request.getAccountId()));
 		if(request.getFrom() != null) {
-			uri = uri.replace(Constants.FROM_DATE_INTEGRATION_PARAMS_KEY, Utils.formatDate(Constants.DATE_FORMAT_yyyy_MM_dd, request.getFrom()));
+			uri = uri.replace(Constants.FROM_DATE_INTEGRATION_PARAMS_KEY, request.getFrom());
 		}
 		if(request.getTo() != null) {
-			uri = uri.replace(Constants.TO_DATE_INTEGRATION_PARAMS_KEY, Utils.formatDate(Constants.DATE_FORMAT_yyyy_MM_dd, request.getTo()));
+			uri = uri.replace(Constants.TO_DATE_INTEGRATION_PARAMS_KEY, request.getTo());
 		}
 		logger.info("END - createLetturaSaldoTransazioniUri produces[{}]",uri);
 		return uri;

@@ -1,6 +1,7 @@
 package it.fabrick.rest.controller;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import it.fabrick.exception.FabrickException;
 import it.fabrick.rest.DTO.GenericResponse;
@@ -80,15 +79,17 @@ public class InterrogazioneController {
 	@ResponseBody
 	public GenericResponse<LetturaTransazioniResponse> getTransazioni(
 			@RequestParam(value = "accountId", required = true) Long accountId,
-			@RequestParam(value = "fromAccountingDate", required = true) @JsonFormat(shape = JsonFormat.Shape.STRING,pattern="yyyy-MM-dd") Date from,
-			@RequestParam(value = "toAccountingDate", required = true) @JsonFormat(shape = JsonFormat.Shape.STRING,pattern="yyyy-MM-dd") Date to
+			@RequestParam(value = "fromAccountingDate", required = true) @DateTimeFormat(pattern=Constants.DEFAULT_DATE_FORMAT) LocalDate from,
+			@RequestParam(value = "toAccountingDate", required = true) @DateTimeFormat(pattern=Constants.DEFAULT_DATE_FORMAT) LocalDate to
 			
 			) { 
 		GenericResponse<LetturaTransazioniResponse> response = null;
 		try {
 			logger.info("START getTransazioni accountId[{}] from[{}] to[{}]",accountId, from, to);
 			
-			LetturaTransazioniRequest request = new LetturaTransazioniRequest(accountId, from, to);
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DEFAULT_DATE_FORMAT);
+			LetturaTransazioniRequest request = new LetturaTransazioniRequest(accountId, from.format(formatter), to.format(formatter));
 			
 			LetturaTransazioniResponse resultTransazioni = interrogazioniService.getTransazioni(request);
 			response = new GenericResponse<LetturaTransazioniResponse>(Constants.HTTP_STATUS_OK, resultTransazioni);

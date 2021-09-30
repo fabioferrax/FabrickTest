@@ -19,6 +19,11 @@ public class Utils {
 		return sdf.format(data);
 	}
 
+	public static Date parseDate(String pattern, String strDate) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		return sdf.parse(strDate);
+	}
+
 	public static boolean validateDate(String pattern, String strDate) {
 		logger.debug("START - validateDate pattern[{}] strDate[{}]", pattern, strDate);
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);

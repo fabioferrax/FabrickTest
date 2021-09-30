@@ -1,8 +1,6 @@
 package it.fabrick.rest.DTO.letturaTransazioni;
 
 
-import java.util.Date;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -15,28 +13,28 @@ public class LetturaTransazioniRequest extends BaseAccountRequest{
 
 	@NotNull
 	@DateTimeFormat(pattern="yyyy-MM-d")
-	private Date from;
+	private String from;
 	@NotNull
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date to;
+	private String to;
 	
 	
 	
-	public LetturaTransazioniRequest(Long accountId, Date from, Date to) {
+	public LetturaTransazioniRequest(Long accountId, String from, String to) {
 		super(accountId);
 		this.from = from;
 		this.to = to;
 	}
-	public Date getFrom() {
+	public String getFrom() {
 		return from;
 	}
-	public void setFrom(Date from) {
+	public void setFrom(String from) {
 		this.from = from;
 	}
-	public Date getTo() {
+	public String getTo() {
 		return to;
 	}
-	public void setTo(Date to) {
+	public void setTo(String to) {
 		this.to = to;
 	}
 	@Override

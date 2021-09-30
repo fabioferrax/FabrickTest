@@ -65,7 +65,11 @@ public class ControllerExceptionHandler {
 		String srcType = ex.getSourceType().getName();
 	    String trgtype = ex.getTargetType().getName();
 	    String value = (String)ex.getValue();
-	    errors.add(new it.fabrick.rest.DTO.Error("VALIDATION_ERROR", "Impossibile convertire '"+value+"' ["+srcType+"] in ["+trgtype+"]"));
+	    if(trgtype.equalsIgnoreCase("java.time.LocalDate")) {
+		    errors.add(new it.fabrick.rest.DTO.Error("VALIDATION_ERROR", "Impossibile convertire '"+value+"' ["+srcType+"] in ["+trgtype+"] - formato consentito ["+Constants.DEFAULT_DATE_FORMAT+"]"));
+	    }else {
+		    errors.add(new it.fabrick.rest.DTO.Error("VALIDATION_ERROR", "Impossibile convertire '"+value+"' ["+srcType+"] in ["+trgtype+"]"));
+	    }
         
 		GenericResponse response = new GenericResponse(Constants.HTTP_STATUS_KO, errors);
 		return new ResponseEntity<GenericResponse>(response, HttpStatus.BAD_REQUEST);
