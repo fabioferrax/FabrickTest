@@ -39,6 +39,21 @@ local.server.port=8080
 
 
 # Servizi Esposti
+
+Le configurazioni degli endpoint dei servizi integrati sono presenti all'interno di **src/main/resources/application.properties**
+
+fabrick.api.baseUrl=https://sandbox.platfr.io\
+fabrick.api.port=\
+fabrick.api.letturaSaldo.endpoint=/api/gbs/banking/v4.0/accounts/{accountId}/balance\
+fabrick.api.letturaTransazioni.endpoint=/api/gbs/banking/v4.0/accounts/{accountId}/transactions?fromAccountingDate={from}&toAccountingDate={to}\
+fabrick.api.bonifico.endpoint=/api/gbs/banking/v4.0/accounts/{accountId}/payments/money-transfers
+
+Le configurazioni per l'authenticazione del clientHttp sono le seguenti:
+
+fabrick.api.key=FXOVVXXHVCPVPBZXIJOBGUGSKHDNFRRQJP\
+fabrick.api.authSchema=S2S
+
+
 ```java
 GetSaldo - riporta il saldo di un account specifico
   API          gbs-banking-service/interrogation/getSaldo
