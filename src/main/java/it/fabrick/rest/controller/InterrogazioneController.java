@@ -78,8 +78,8 @@ public class InterrogazioneController {
 	@ResponseBody
 	public GenericResponse<LetturaTransazioniResponse> getTransazioni(
 			@RequestParam(value = "accountId", required = true) Long accountId,
-			@RequestParam(value = "fromAccountingDate", required = true) @DateTimeFormat(pattern="yyyy-MM-d") Date from,
-			@RequestParam(value = "toAccountingDate", required = true) @DateTimeFormat(pattern="yyyy-MM-d") Date to
+			@RequestParam(value = "fromAccountingDate", required = true) @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
+			@RequestParam(value = "toAccountingDate", required = true) @DateTimeFormat(pattern="yyyy-MM-dd") Date to
 			
 			) { 
 		GenericResponse<LetturaTransazioniResponse> response = null;
