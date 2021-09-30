@@ -23,7 +23,8 @@ JSON In/Out <---> |    O   |<---> |    I   |     _________
 													                                                         
 L'applicazione è stata costruita sfruttando il framework Spring-boot per la realizzazione e l'esposizione delle API REST.
 
-HOW TO RUN:
+# HOW TO RUN
+
 L'applicazione decessita di una connessione ad un database postgres.
 Configurare le seguenti properties presenti all'interno di **src/main/resources/application.properties**
 
@@ -36,9 +37,9 @@ I servizi saranno esposti tramite il tomcat-embedded di spring sulla porta confi
 
 local.server.port=8080
 
-```java
-Servizi Esposti:
 
+# Servizi Esposti
+```java
 GetSaldo - riporta il saldo di un account specifico
   API          gbs-banking-service/interrogation/getSaldo
   METHOD       GET
