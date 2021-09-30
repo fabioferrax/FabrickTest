@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import it.fabrick.exception.FabrickException;
 import it.fabrick.rest.DTO.GenericResponse;
 import it.fabrick.rest.DTO.letturaSaldo.LetturaSaldoResponse;
@@ -78,8 +80,8 @@ public class InterrogazioneController {
 	@ResponseBody
 	public GenericResponse<LetturaTransazioniResponse> getTransazioni(
 			@RequestParam(value = "accountId", required = true) Long accountId,
-			@RequestParam(value = "fromAccountingDate", required = true) @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
-			@RequestParam(value = "toAccountingDate", required = true) @DateTimeFormat(pattern="yyyy-MM-dd") Date to
+			@RequestParam(value = "fromAccountingDate", required = true) @JsonFormat(shape = JsonFormat.Shape.STRING,pattern="yyyy-MM-dd") Date from,
+			@RequestParam(value = "toAccountingDate", required = true) @JsonFormat(shape = JsonFormat.Shape.STRING,pattern="yyyy-MM-dd") Date to
 			
 			) { 
 		GenericResponse<LetturaTransazioniResponse> response = null;
