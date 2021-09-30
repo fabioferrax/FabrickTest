@@ -19,10 +19,24 @@ JSON In/Out <---> |    O   |<---> |    I   |     _________
 		  |    R   |      |        |    |        |
 		  |________|      |________|    |        |
                                            	|________|
-										   
-														                                                         
+```										   
+													                                                         
 L'applicazione è stata costruita sfruttando il framework Spring-boot per la realizzazione e l'esposizione delle API REST.
 
+HOW TO RUN:
+L'applicazione decessita di una connessione ad un database postgres.
+Configurare le seguenti properties presenti all'interno di **src/main/resources/application.properties**
+
+spring.datasource.username=[USERNAME]\
+spring.datasource.password=[USERNAME]\
+spring.datasource.url=[URL_CONNESSIONE_DB]
+
+Una volta configurato il DB, eseguire il comando **mvn spring-boot:run** per eseguire l'applicazione in locale.
+I servizi saranno esposti tramite il tomcat-embedded di spring sulla porta configurata all'interno di **src/main/resources/application.properties**:
+
+local.server.port=8080
+
+```java
 Servizi Esposti:
 
 GetSaldo - riporta il saldo di un account specifico
