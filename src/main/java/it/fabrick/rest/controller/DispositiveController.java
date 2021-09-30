@@ -58,7 +58,7 @@ public class DispositiveController {
 		try {
 			logger.info("START eseguiBonifico request[{}]",request);
 			
-			
+			request.setFeeAccountId(request.getAccountId());
 			BonificoResponse resultBonifico = dispositiveService.eseguiBonifico(request);
 			
 			response = new GenericResponse<BonificoResponse>(Constants.HTTP_STATUS_OK, resultBonifico);

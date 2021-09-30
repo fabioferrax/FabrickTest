@@ -18,9 +18,8 @@ public class BonificoRequest extends BaseAccountRequest {
 	@Valid
 	private CreditorDTO creditor;
 	private String uri;
-	@NotNull
 	@DateTimeFormat(pattern="yyyy-MM-d")
-	private Date executionDate;
+	private Date executionDate = new Date();
 	@NotNull
 	@NotBlank
 	private String description;
@@ -32,8 +31,6 @@ public class BonificoRequest extends BaseAccountRequest {
 	private boolean isUrgent;
 	private boolean isInstant;
 	private String feeType;
-	@NotNull
-	@NotBlank
 	private String feeAccountId;
 	@Valid
 	private TaxReliefDTO taxRelief;
