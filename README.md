@@ -5,21 +5,22 @@ L'applicazione è stata sviluppata a scopo di test.
 Racchiude 3 API REST per l'integrazione dei servizi esposti dalla piattaforma Fabrick Developer.
 
 Strutturata sulla base dei modelli MVC, l'applicazione è stratificata come segue:
-
-						     _________		   _________      _________ 
-						     |    C   |      |        |    |        |
-						     |    O   |      |    S   |    |        |
-						     |    N   |      |    E   |<-->|  DAO   | <--->(DB)
-						     |    T   |      |    R   |    |        |
-						     |    R   |      |    V   |    |________|
-JSON In/Out <--->|    O   |<---> |    I   |     _________
-						     |    L   |      |    S   |    |        |
-						     |    L   |      |    E   |    |Fabrick |
-						     |    E   |      |    S   |<-->|   API  | 
-						     |    R   |      |        |    |        |
-						     |________|      |________|    |        |
-                                               |________|
-                                                          
+```java
+		  _________	   _________     ________ 
+		  |    C   |      |        |    |        |
+		  |    O   |      |    S   |    |        |
+		  |    N   |      |    E   |<-->|  DAO   | <--->(DB)
+		  |    T   |      |    R   |    |        |
+		  |    R   |      |    V   |    |________|
+JSON In/Out <---> |    O   |<---> |    I   |     _________
+		  |    L   |      |    S   |    |        |
+		  |    L   |      |    E   |    |Fabrick |
+		  |    E   |      |    S   |<-->|   API  | 
+		  |    R   |      |        |    |        |
+		  |________|      |________|    |        |
+                                           	|________|
+										   
+														                                                         
 L'applicazione è stata costruita sfruttando il framework Spring-boot per la realizzazione e l'esposizione delle API REST.
 
 Servizi Esposti:
